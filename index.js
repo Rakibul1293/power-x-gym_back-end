@@ -71,6 +71,27 @@ let client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: t
 //     });
 // });
 
+
+
+app.get('/userDetails', (req, res) => {
+    // client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(err => {
+        const collection = client.db("powerXGgym").collection("userDetails");
+        collection.find().toArray((err, documents) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send({ message: err });
+            }
+            else {
+                res.send(documents);
+            }
+        });
+        // client.close();
+    });
+});
+
+
+
 //delete
 //update
 // post
